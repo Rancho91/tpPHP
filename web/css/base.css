@@ -1,0 +1,31 @@
+.nav {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    top: 0;
+    left: 0;
+    width:100%; 
+    background-color: #ffffff; 
+    padding: 10px 30px ; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    background-color: rgb(19, 22, 20);
+}
+.titulo{
+    font-size:x-large ;
+    color: #ffffff;
+}
+.listaNavegador {
+    padding-right: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+    font-size: large;
+    list-style-type: none;
+ 
+}
+.lista{
+    padding: 5px;
+}
+
