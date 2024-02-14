@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
+{% endblock %}
+
+{% block body %}
+	<div>
+		<div class="card-body">
+			<select class="form-select" aria-label="Default select example">
+				<option selected>Open this select menu</option>
+				{% for category in categories %}
+					<option value="{{category.id}}">{{category.name}}}
+					</option>
+				{% endfor %}
+			</select>
+			<table id="datatablesSimple">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Imagen</th>
+						<th>Categoria</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for product in products %}
+						<tr>
+							<td>{{product.producto}}
+							</td>
+							<td><img src="{{ asset ( productImg~product.image) }}" class="image"></td>
+							<td>
+								{{product.categoria}}
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+
+{% endblock %}

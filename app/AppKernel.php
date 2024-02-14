@@ -32,7 +32,7 @@ class AppKernel extends Kernel
     {
         return __DIR__;
     }
-
+    
     public function getCacheDir()
     {
         return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
