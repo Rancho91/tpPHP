@@ -6,11 +6,20 @@
 
 {% block body %}
 	<div class="container">
+		{% if image %}
+			<img src="{{ asset ( productImg~image) }}" width="100px">
+		{% endif %}
 		{{ form_start(form) }}
 		{{ form_widget(form) }}
 		{{ form_end(form) }}
+		{% for flashMessage in app.session.flashbag.get('imageError') %}
+			<div class="alert alert-danger">
+				{{ flashMessage }}
+			</div>
+		{% endfor %}
 	</div>
+
 {% endblock %}
 {% block javascripts %}
 <script type="text/javascript" src="{{ asset('js/nuevoImgProduct.js')}} ">
-{% endblock %}
+	{% endblock %}

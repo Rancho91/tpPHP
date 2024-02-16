@@ -24,12 +24,33 @@
 				<tbody>
 					{% for product in products %}
 						<tr>
-							<td>{{product.producto}}
+							<td>
+								<a class="" href="{{ path ('newproduct', {'id': product.id}) }}">
+									Editar
+								</a>
+							</td>
+							<td>
+								{{product.producto}}
 							</td>
 							<td><img src="{{ asset ( productImg~product.image) }}" class="image"></td>
 							<td>
 								{{product.categoria}}
 							</td>
+							<td>
+								<form action="{{ path ('deleted', {'id': product.id}) }}" method="POST">
+									{% if product.deleted ==0 %}
+										<button type="submit">
+											Deshabilitar
+										</button>
+									{% else %}
+										<button type="submit">
+											Habiltiar
+										</button>
+									{% endif %}
+								</form>
+							</td>
+
+
 						</tr>
 					{% endfor %}
 				</tbody>

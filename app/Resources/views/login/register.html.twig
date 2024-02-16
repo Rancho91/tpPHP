@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}{% endblock %}
+{% form_theme form 'forms/registerForm.html.twig' %}
+
+{% block body %}
+	<div class="container">
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		{{ form_end(form) }}
+		{% for flashMessage in app.session.flashbag.get('errorRegister') %}
+			<div class="alert alert-danger">
+				{{ flashMessage }}
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
+{% block javascripts %}{% endblock %}

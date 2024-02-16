@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Users
@@ -11,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UsersRepository")
  */
-class Users 
+class Users implements UserInterface
 {
     /**
      * @var int
@@ -30,9 +31,15 @@ class Users
     private $username;
 
     /**
+     * @Assert\NotBlank
+     * @Assert\Length(max=4096)
+     */
+    private $plainPassword;
+
+    /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string")
+     * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
@@ -42,7 +49,6 @@ class Users
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      */
     private $email;
-
 
     /**
      * Get id
@@ -76,6 +82,16 @@ class Users
     public function getUsername()
     {
         return $this->username;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
     }
 
     /**
@@ -125,5 +141,26 @@ class Users
     {
         return $this->email;
     }
-}
 
+    // Métodos requeridos por la interfaz UserInterface
+
+    public function getRoles()
+    {
+        // Devuelve los roles del usuario
+        return ['ROLE_USER'];
+    }
+
+    public function getSalt()
+    {
+        // Devuelve la "sal" utilizada para cifrar la contraseña
+        // En Symfony 5.3 y posteriores, este método puede devolver null
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+        // Borra las credenciales almacenadas temporalmente
+        // que podrían ser sensibles
+        $this->plainPassword = null;
+    }
+}

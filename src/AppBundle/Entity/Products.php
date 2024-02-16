@@ -29,6 +29,13 @@ class Products
     private $name;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean", options={"default" : false})
+     */
+    private $deleted;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="image", type="text", length=500)
@@ -50,16 +57,15 @@ class Products
      * Set name
      *
      * @param string $name
-     *
      * @return Products
      */
     public function setName($name)
     {
         $this->name = $name;
-
         return $this;
     }
 
+   
     /**
      * Get name
      *
@@ -74,13 +80,11 @@ class Products
      * Set image
      *
      * @param string $image
-     *
      * @return Products
      */
     public function setImage($image)
     {
         $this->image = $image;
-
         return $this;
     }
 
@@ -93,10 +97,32 @@ class Products
     {
         return $this->image;
     }
-     /**
+
+    /**
+     * Get deleted
+     *
+     * @return boolean
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return Products
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+        return $this;
+    }
+
+    /**
      * @ORM\ManyToOne(targetEntity="Categories", inversedBy="products")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     public $categories;
 }
-
