@@ -39,7 +39,7 @@ class Users implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="password", type="string", length=255)
+     * @ORM\Column(name="password", type="blob")
      */
     private $password;
 
