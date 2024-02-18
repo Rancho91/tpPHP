@@ -6,11 +6,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Products;
-use AppBundle\Entity\Categories;
 use AppBundle\Entity\Users;
-use AppBundle\Form\loginType;
+use AppBundle\Form\categoriesFilterType;
 use AppBundle\Form\registerType;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
 class DefaultController extends Controller
@@ -20,11 +18,28 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $repository = $this->getDoctrine()->getRepository(Products::class);
-        $products =  $repository->findAll();
-        // var_dump($products);
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array('products' => $products));
+        $product = new Products();
+
+        $form = $this->createForm(categoriesFilterType::class );
+        $form->handleRequest($request);
+        $sql = 'SELECT p.id id, p.name producto, p.image, p.deleted deleted, c.name categoria FROM products p JOIN categories c ON c.id = p.category_id WHERE p.deleted = 0';
+        var_dump($form->isSubmitted());
+        var_dump($form->isValid());
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $category = $data['categories'];
+
+            if ($category !== null) {
+                $sql .= ' AND c.id = ' . $category->getId();
+            }
+        }
+        $em = $this->getDoctrine()->getManager();
+        $connection = $em->getConnection();
+        $statement = $connection->prepare($sql);
+        $statement->execute();
+        $products = $statement->fetchAll();
+        return $this->render('default/index.html.twig', array('products' => $products, 'form' => $form->createView()));
     }
 
 
@@ -35,7 +50,7 @@ class DefaultController extends Controller
 
     public function loginAction(Request $request)
     {
-   
+
         $authenticationUtils = $this->get('security.authentication_utils');
 
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -57,7 +72,8 @@ class DefaultController extends Controller
         $user = new Users();
         $form = $this->createForm(registerType::class, $user);
         $form->handleRequest($request);
-
+        var_dump($form->isSubmitted());
+        var_dump($form->isValid());
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
             $userRepository = $this->getDoctrine()->getRepository(Users::class);

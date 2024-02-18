@@ -12,7 +12,6 @@ use AppBundle\Entity\Products;
 use AppBundle\Entity\Categories;
 use AppBundle\Form\categoriesType;
 use AppBundle\Form\productType;
-use Symfony\Component\HttpFoundation\Response;
 
 class DashboardController extends Controller
 {
@@ -24,10 +23,7 @@ class DashboardController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        // Obtener la conexión de la base de datos
         $connection = $em->getConnection();
-
-        // Crear la consulta SQL
         $sql = 'SELECT p.id id, p.name producto,image,p.deleted deleted,  c.name categoria FROM products p JOIN categories c ON c.id = p.category_id';
 
         // Ejecutar la consulta
@@ -115,7 +111,10 @@ class DashboardController extends Controller
             throw $this->createNotFoundException('Producto no encontrado');
         }
 
-        return $this->redirectToRoute('dashboard');
+        return $this->json([
+            'success' => true,
+            'state' => $product->getDeleted() == 1 ? "disabled" : "enabled"
+        ]);
     }
 
     /**

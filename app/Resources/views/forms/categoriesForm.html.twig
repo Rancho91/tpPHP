@@ -1,9 +1,9 @@
 {%- block form_row -%}
     <div>
-        {{- form_label(form) -}}
-        {{- form_errors(form) -}}
-        {{- form_widget(form) -}}
-        {{- form_widget(form) -}}
+		{{ form_start(form) }}
+		{{ form_widget(form) }}
+		{{ form_end(form) }}
+
     </div>
 {%- endblock form_row -%}
 
