@@ -7,11 +7,11 @@ function toggleProductState(path, el) {
           if (ret.state == "enabled") {
             $(el).removeClass("btn-success");
             $(el).addClass("btn-danger");
-            $(el).html("Deshabilitar");
+            $(el).html("Disable");
           } else {
             $(el).removeClass("btn-danger");
             $(el).addClass("btn-success");
-            $(el).html("Habilitar");
+            $(el).html("Enable");
           }
         }
       },

@@ -5,7 +5,7 @@
 
 	<div class="container py-4">
 			<select class="form-select" aria-label="Default select example" onchange="filterProduct('{{ path ('filterProduct') }}',this,'{{ asset ( productImg) }}')" >
-				<option value="0" selected>Todas las categorias</option>
+				<option value="0" selected>All</option>
 				{% for category in categories %}
 					<option value="{{category.id}}">
 						{{category.name}}

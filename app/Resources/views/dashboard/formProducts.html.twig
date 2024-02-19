@@ -5,6 +5,8 @@
 {% form_theme form 'forms/productForm.html.twig' %}
 
 {% block body %}
+<h1 class="text-center mb-4" >Product</h1>
+
 	<div class="container">
 		{% if image %}
 			<img src="{{ asset ( productImg~image) }}" width="100px">

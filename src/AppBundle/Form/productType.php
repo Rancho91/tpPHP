@@ -26,6 +26,6 @@ class productType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => 'Seleccione una categoría',
             ])
-            ->add('save', SubmitType::class, array('label' => 'Nuevo Producto'));
+            ->add('save', SubmitType::class, array('label' => 'Send'));
     }
 }

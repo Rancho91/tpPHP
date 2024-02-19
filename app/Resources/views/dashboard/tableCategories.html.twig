@@ -11,36 +11,30 @@
 					<tr>
 						<th scope="col">Edit</th>
 						<th scope="col">Name</th>
-						<th scope="col">Image</th>
-						<th scope="col">Category</th>
 						<th scope="col">Disable/Enable</th>
 					</tr>
 				</thead>
 				<tbody>
-					{% for product in products %}
+					{% for category in categories %}
 						<tr>
 							<td scope="row">
-								<a class="btn btn-success" href="{{ path ('newproduct', {'id': product.id}) }}">
+								<a class="btn btn-success" href="{{ path ('categoriesCreate', {'id': category.id}) }}">
 									Edit
 								</a>
 							</td>
 							<td>
-								{{product.producto}}
+								{{category.name}}
 							</td>
-							<td><img src="{{ asset ( productImg~product.image) }}" class="image"></td>
-							<td>
-								{{product.categoria}}
-							</td>
-							<td>
-								{% if product.deleted ==0 %}
-									<button class="btn btn-danger" onclick="toggleProductState('{{ path ('deleted', {'id': product.id}) }}', this)">
-									Disable
+                            <td>
+								{% if category.deleted ==0 %}
+									<button class="btn btn-danger" onclick="toggleProductState('{{ path ('deletedCategory', {'id': category.id}) }}', this)">
+										Disable
 									</button>
 
 								{% else %}
-									<button type="submit" class="btn btn-success" onclick="toggleProductState('{{ path ('deleted', {'id': product.id}) }}', this)">
+									<button type="submit" class="btn btn-success" onclick="toggleProductState('{{ path ('deletedCategory', {'id': category.id}) }}', this)">
 
-									Enable.
+										Enable
 									</button>
 								{% endif %}
 							</td>

@@ -63,6 +63,12 @@ class Categories
     {
         return $this->name;
     }
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="deleted", type="boolean", options={"default" : false})
+     */
+    private $deleted;
 
     /**
      * @ORM\OneToMany(targetEntity="Products", mappedBy="categories")
@@ -73,5 +79,25 @@ class Categories
     {
         $this->products = new ArrayCollection();
     }
-}
+    /**
+     * Get deleted
+     *
+     * @return boolean
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
 
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return Products
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+        return $this;
+    }
+}

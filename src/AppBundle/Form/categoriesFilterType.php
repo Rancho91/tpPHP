@@ -15,7 +15,7 @@ class categoriesFilterType extends AbstractType
             'choice_label' => 'name',
             'placeholder' => 'Seleccione una categoría',
             'required' => false,
-        ]) ->add('save', SubmitType::class, array('label' => 'Buscar'));
+        ]) ->add('save', SubmitType::class, array('label' => 'Search'));
         ;
     }
 }

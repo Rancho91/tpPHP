@@ -22,9 +22,9 @@ class DefaultController extends Controller
     {
         $form = $this->createForm(categoriesFilterType::class);
         $form->handleRequest($request);
-        $sql = 'SELECT p.id id, p.name producto, p.image, p.deleted deleted, c.name categoria FROM products p JOIN categories c ON c.id = p.category_id WHERE p.deleted = 0';
-        $repository = $this->getDoctrine()->getRepository(Categories::class);
-        $categories =  $repository->findAll();
+        $sql = 'SELECT p.id id, p.name producto, p.image, p.deleted deleted, c.name categoria FROM products p JOIN categories c ON c.id = p.category_id WHERE p.deleted = 0 and c.deleted = 0';
+        $sqlCategory='SELECT * FROM categories WHERE deleted = 0';
+ 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             $category = $data['categories'];
@@ -38,6 +38,10 @@ class DefaultController extends Controller
         $statement = $connection->prepare($sql);
         $statement->execute();
         $products = $statement->fetchAll();
+        $statement = $connection->prepare($sqlCategory);
+        $statement->execute();
+        $categories = $statement->fetchAll();
+
         return $this->render('default/index.html.twig', array('products' => $products, 'form' => $form->createView(), 'categories' => $categories));
     }
     /**
