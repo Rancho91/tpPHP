@@ -1,3 +1,8 @@
+Prueba Tecnica, php 3.2
+
+dos tablas con sus respectivos Crud, Con borrado logico para no mostrar productos en la interfaz del cliente (Home), Registro, login, dashboard protegido.
+
+Query SQL.
 insert into categories (name) values('Camperas'),('Remeras'),('Medias'), ('Pantalones')
 
 
